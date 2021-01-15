@@ -7,16 +7,16 @@ if(isset($_SERVER["REQUEST_METHOD"])) {
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
 
-        if(!isset($_POST["date"])) {
+        if(isset($_SESSION["date"])) {
 
 
             $day = $_POST["day"];
             $month = $_POST["month"];
                 
 
-            $userInput = getHoroscope($month, $day);
+            $horoscopeQuery = getHoroscope($month, $day);
                 
-            $_SESSION['date'] = serialize($dates);
+            $_SESSION['date'] = serialize($horoscopeQuery);
             echo json_encode(true);
             exit;
 
@@ -24,7 +24,6 @@ if(isset($_SERVER["REQUEST_METHOD"])) {
         }else{
             
                 echo json_encode(false);
-
                 exit;
             }
     }

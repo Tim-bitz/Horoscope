@@ -2,6 +2,7 @@
 
 session_start();
 
+require("./findHoroscope.php");
 
 if(isset($_SERVER["REQUEST_METHOD"])) {
 
@@ -13,7 +14,7 @@ if(isset($_SERVER["REQUEST_METHOD"])) {
             
         }
         else{
-            if (isset($_POST['month'])&& isset($_POST['day'])) {
+            if(isset($_POST['month'])&& isset($_POST['day'])) {
 
                 $day = $_POST['day'];
                 $month = $_POST['month'];
@@ -21,28 +22,9 @@ if(isset($_SERVER["REQUEST_METHOD"])) {
                 $horoscopeQuery = getHoroscope($month, $day);
             
                 $_SESSION['date'] = serialize($horoscopeQuery);
-                    echo json_encode(true);
-
-
-            //    $checkDay= explode('-', json_encode($_SESSION['day']));
-
-/*
-            $day = array (
-                array("stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen"),
-                array("Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Fiskarna","Fiskarna","Fiskarna","Fiskarna","Fiskarna","Fiskarna","Fiskarna","Fiskarna","Fiskarna","Fiskarna"),
-                array("Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna","Väduren","Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren"),
-                array("Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen"),
-                array("Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", ),
-                array("Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", ),
-                array("Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", ),
-                array(),
-                array(),
-                array(),
-                array(),
-                array(),
-
-            );
-*/
+                
+                echo json_encode(true);
+            
                 exit;
         
             }else{
@@ -61,7 +43,25 @@ if(isset($_SERVER["REQUEST_METHOD"])) {
        
 
 
+//    $checkDay= explode('-', json_encode($_SESSION['day']));
 
+/*
+            $day = array (
+                array("stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "stenbock", "Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen"),
+                array("Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Vattumannen","Fiskarna","Fiskarna","Fiskarna","Fiskarna","Fiskarna","Fiskarna","Fiskarna","Fiskarna","Fiskarna","Fiskarna"),
+                array("Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna", "Fiskarna","Väduren","Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren"),
+                array("Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Väduren", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen"),
+                array("Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Oxen", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", ),
+                array("Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Tvillingarna", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", ),
+                array("Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Kräftan", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", "Lejonet", ),
+                array(),
+                array(),
+                array(),
+                array(),
+                array(),
+
+            );
+*/
 /*
 
 Vattumannen: 20 januari - 18 februari

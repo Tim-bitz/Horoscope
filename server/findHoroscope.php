@@ -1,6 +1,6 @@
-function findHoroscope($month, $day)
 <?php
 
+function getHoroscope($month, $day)
 {
     if ($month == 3 && $day >= 21 || $month == 4 && $day <= 19) 
     {
